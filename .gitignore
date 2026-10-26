@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+env/
+static/uploads/*
+static/results/*
+models/*.caffemodel
