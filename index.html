@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Image & Text Recognition</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><div class="brand-mark">AI</div><div><p class="eyebrow">ARTIFICIAL INTELLIGENCE · PROJECT 4</p><h1>Image &amp; Text Recognition</h1></div></header>
+<main class="layout">
+  <section class="intro"><span class="pill">Machine Learning · Computer Vision</span><h2>Turn visual input into useful information.</h2><p>Upload a picture to extract printed text with OCR or detect common objects using the MobileNet-SSD model.</p><div class="feature-row"><div><b>01</b><span>Upload image</span></div><div><b>02</b><span>Choose recognition</span></div><div><b>03</b><span>View result</span></div></div></section>
+  <section class="panel"><h2>Start recognition</h2><p class="muted">PNG, JPG, JPEG, BMP or WEBP · Maximum 12 MB</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+    <form action="{{ url_for('recognize') }}" method="post" enctype="multipart/form-data">
+      <label class="upload-box" for="image"><span class="upload-icon">↑</span><strong id="file-label">Choose an image to upload</strong><span>Click here to browse files</span><input id="image" name="image" type="file" accept="image/png,image/jpeg,image/bmp,image/webp" required></label>
+      <label class="field-label" for="mode">Recognition mode</label><select id="mode" name="mode"><option value="ocr">Optical Character Recognition (OCR)</option><option value="detect">Object Detection (MobileNet-SSD)</option></select>
+      <button type="submit" class="primary">Run recognition <span>→</span></button>
+    </form>
+    <div class="note"><b>Before using OCR:</b> Install the Tesseract OCR engine on your computer. Object detection also needs the two MobileNet-SSD model files described in README.md.</div>
+  </section>
+</main><footer>AI Project 4 · Image or Text Recognition (Basic)</footer>
+<script>document.getElementById('image').addEventListener('change', function(){document.getElementById('file-label').textContent=this.files.length ? this.files[0].name : 'Choose an image to upload';});</script>
+</body></html>
